@@ -1,0 +1,39 @@
+﻿<Window x:Class="server.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:server"
+        mc:Ignorable="d"
+        Title="服务器" Height="450" Width="630" Visibility="Visible" ResizeMode="CanResizeWithGrip">
+    <Grid Background="#F5F5F5">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <ListBox Margin="10" Name="listBox2"/>
+
+            <StackPanel Grid.Column="1" Margin="10">
+                <StackPanel Margin="0 10 0 10" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock Text="IP:" FontSize="15"/>
+                    <TextBox Width="160" Height="20" Text="127.0.0.1" Name="txtIP"/>
+                </StackPanel>
+                <StackPanel Margin="0 10 0 10" Orientation="Horizontal">
+                    <TextBlock Text="端口:" FontSize="15"/>
+                    <TextBox Width="148" Height="20" Text="9999" Name="txtPort"/>
+                </StackPanel>
+                <Button Content="开启服务器" Width="100" FontSize="15" Name="btnStartServer" Tag="open" Click="btnStartServer_Click"/>
+                <ListBox Margin="0 20 0 20" Height="243" Name="listBox1"/>
+            </StackPanel>
+        </Grid>
+        
+        <TextBlock Name="server_info" Grid.Row="1" VerticalAlignment="Center" Text="服务器已关闭" Foreground="Black"  Background="Transparent" Margin="10 0 0 0"/>
+    </Grid>
+</Window>
