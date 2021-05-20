@@ -1,0 +1,32 @@
+﻿<Window x:Class="bigwork.SignIn"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:bigwork"
+        mc:Ignorable="d"
+        Title="SignIn" Height="200" Width="300" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Icon="Image/logo.png">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Name="error" Text="用户名或密码不规范！！！" Foreground="Red" HorizontalAlignment="Center" Visibility="Hidden"/>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin=" 0 0 0 10">
+                <TextBlock Text="用户名：" FontSize="15"/>
+                <TextBox Width="150" Name="user_name"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin=" 0 10 0 20">
+                <TextBlock Text="密码：" FontSize="15"/>
+                <PasswordBox Width="150" Name="user_passwd"/>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
+            <Button Click="SignUp_Click" Grid.Row="1" Name="SignUp" Width="100" Height="30" Content="登录" Margin="0 0 10 0"/>
+            <Button Click="SignUp_Click1" Name="sregister" Width="100" Height="30" Content="注册" Margin="10 0 0 0"/>
+        </StackPanel>
+        
+    </Grid>
+</Window>
