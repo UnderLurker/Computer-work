@@ -95,8 +95,8 @@ namespace bigwork.Net
                         }
                         else if (info[0] == "successful")
                         {
-                            Si.jump(info[1]);
-                            //SignIn.isSuccessful(info[1]);
+                            //Si.jump(info[1]);
+                            SignIn.isSuccessful(info[1]);
 
                         }
                         else if (info[0] == "failed")

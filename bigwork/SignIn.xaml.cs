@@ -32,22 +32,26 @@ namespace bigwork
 
         private void SignUp_Click(object sender, RoutedEventArgs e)
         {
-            string name = user_name.Text.Trim();
-            string passwd = user_passwd.Password.Trim();
-            //if (isVictory)
-            //{
-            //    MainWindow mainWindow = new MainWindow(name,vm);
-            //    mainWindow.Show();
-            //    this.Close();
-            //}
-
-            if (name == "" || passwd == "")//不正确
+            while (true)
             {
-                error.Visibility = Visibility.Visible;
-                return;
+                string name = user_name.Text.Trim();
+                string passwd = user_passwd.Password.Trim();
+                if (isVictory)
+                {
+                    MainWindow mainWindow = new MainWindow(name, vm);
+                    mainWindow.Show();
+                    this.Close();
+                    break;
+                }
+
+                if (name == "" || passwd == "")//不正确
+                {
+                    error.Visibility = Visibility.Visible;
+                    return;
+                }
+                //发送给服务器消息
+                vm.SendInfo($"signin {name} {passwd}");
             }
-            //发送给服务器消息
-            vm.SendInfo($"signin {name} {passwd}");
         }
         private void SignUp_Click1(object sender, RoutedEventArgs e)
         {
@@ -69,13 +73,13 @@ namespace bigwork
                     ));
         }
 
-        //private static bool isVictory=false;
-        ////登录是否成功
-        //public static string isSuccessful(string name)
-        //{
-        //    isVictory = true;
-        //    return name;
-        //}
+        private static bool isVictory = false;
+        //登录是否成功
+        public static string isSuccessful(string name)
+        {
+            isVictory = true;
+            return name;
+        }
 
     }
 }
