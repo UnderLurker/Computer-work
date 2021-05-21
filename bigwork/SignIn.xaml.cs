@@ -34,12 +34,12 @@ namespace bigwork
         {
             string name = user_name.Text.Trim();
             string passwd = user_passwd.Password.Trim();
-            if (isVictory)
-            {
-                MainWindow mainWindow = new MainWindow(name, vm);
-                mainWindow.Show();
-                this.Close();
-            }
+            //if (isVictory)
+            //{
+            //    MainWindow mainWindow = new MainWindow(name,vm);
+            //    mainWindow.Show();
+            //    this.Close();
+            //}
 
             if (name == "" || passwd == "")//不正确
             {
@@ -56,26 +56,26 @@ namespace bigwork
             this.Close();
         }
 
-        //public void jump(string name)
-        //{
-        //    Dispatcher.Invoke(
-        //        new Action(
-        //                delegate
-        //                {
-        //                    MainWindow mainWindow = new MainWindow(name, this.vm);
-        //                    mainWindow.Show();
-        //                    this.Close();
-        //                }
-        //            ));
-        //}
-
-        private static bool isVictory = false;
-        //登录是否成功
-        public static string isSuccessful(string name)
+        public void jump(string name)
         {
-            isVictory = true;
-            return name;
+            Dispatcher.Invoke(
+                new Action(
+                        delegate
+                        {
+                            MainWindow mainWindow = new MainWindow(name, this.vm);
+                            mainWindow.Show();
+                            this.Close();
+                        }
+                    ));
         }
+
+        //private static bool isVictory=false;
+        ////登录是否成功
+        //public static string isSuccessful(string name)
+        //{
+        //    isVictory = true;
+        //    return name;
+        //}
 
     }
 }
