@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Odbc;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using server.data;
+using System;
+using System.Collections.Generic;
 
 namespace server.SQL
 {
@@ -26,7 +21,7 @@ namespace server.SQL
         public int SelectMySql(Dictionary<string, Customer> person)
         {
             int count = 0;
-            using (MySqlConnection msc=new MySqlConnection(MyConString))
+            using (MySqlConnection msc = new MySqlConnection(MyConString))
             {
                 MySqlCommand cmd = new MySqlCommand(read, msc);
                 msc.Open();
@@ -41,7 +36,7 @@ namespace server.SQL
                     {
                         cp = reader.GetString("contactpersons");
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
 
                     }
@@ -51,10 +46,10 @@ namespace server.SQL
                     temp.Passwd = pwd;
                     temp.ID = id;
                     temp.OnLine = false;
-                    foreach(string i in list)
+                    foreach (string i in list)
                     {
                         if (i == "") continue;
-                        temp.ContanctPerosnList.Add(i,i);
+                        temp.ContanctPerosnList.Add(i, i);
                     }
                     person.Add(temp.Name, temp);
                     count++;
@@ -68,7 +63,7 @@ namespace server.SQL
         /// </summary>
         /// <param name="customer"></param>
         /// <param name="id"></param>
-        public void insertSql(Customer customer,int id)
+        public void insertSql(Customer customer, int id)
         {
             using (MySqlConnection msc = new MySqlConnection(MyConString))
             {
@@ -83,11 +78,11 @@ namespace server.SQL
         /// </summary>
         /// <param name="username"></param>
         /// <param name="cpname"></param>
-        public void updatePerson(string username,string cpname)
+        public void updatePerson(string username, string cpname)
         {
             using (MySqlConnection msc = new MySqlConnection(MyConString))
             {
-                MySqlCommand cmd = new MySqlCommand($"update client set contactpersons='{cpname}' where name='{username}'",msc);
+                MySqlCommand cmd = new MySqlCommand($"update client set contactpersons='{cpname}' where name='{username}'", msc);
                 msc.Open();
                 cmd.ExecuteNonQuery();
             }
@@ -124,11 +119,11 @@ namespace server.SQL
         /// </summary>
         /// <param name="username"></param>
         /// <param name="personlist"></param>
-        public void deletePerson(string username,string personlist)
+        public void deletePerson(string username, string personlist)
         {
-            using (MySqlConnection msc=new MySqlConnection(MyConString))
+            using (MySqlConnection msc = new MySqlConnection(MyConString))
             {
-                MySqlCommand cmd1 = new MySqlCommand($"update client set contactpersons='{personlist}' where name='{username}'",msc);
+                MySqlCommand cmd1 = new MySqlCommand($"update client set contactpersons='{personlist}' where name='{username}'", msc);
                 msc.Open();
                 cmd1.ExecuteReader();
             }

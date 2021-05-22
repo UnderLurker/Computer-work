@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace server.data
 {
@@ -38,7 +35,7 @@ namespace server.data
             set { online = value; }
         }
 
-        private Dictionary<string,string> contactPersonList = new Dictionary<string, string>() { };
+        private Dictionary<string, string> contactPersonList = new Dictionary<string, string>() { };
         public Dictionary<string, string> ContanctPerosnList
         {
             get { return contactPersonList; }

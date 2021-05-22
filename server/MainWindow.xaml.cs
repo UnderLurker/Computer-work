@@ -1,18 +1,12 @@
-﻿using System;
+﻿using server.data;
+using server.SQL;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Net.Sockets;
 using System.Net;
+using System.Net.Sockets;
+using System.Text;
 using System.Threading;
 using System.Windows;
-using server.data;
-using server.SQL;
 
 namespace server
 {
@@ -27,7 +21,7 @@ namespace server
 
         public MainWindow()
         {
-            count=sql.SelectMySql(Person);
+            count = sql.SelectMySql(Person);
             InitializeComponent();
             server_info.Text = "服务器已关闭";
         }
@@ -156,7 +150,7 @@ namespace server
                                 Person[str[1]].SendInfo($"noline {str[2]}");
                             }
                         }
-                        catch(Exception ex)
+                        catch (Exception ex)
                         {
                             Person[str[1]].SendInfo($"none");
                         }
@@ -172,10 +166,10 @@ namespace server
                         contactpersons += str[1] + ";";
                         sql.updatePerson(str[2], contactpersons);
                         Person[str[2]].SendInfo($"yes {str[1]}");
-                        Person[str[2]].ContanctPerosnList.Add(str[1],str[1]);
+                        Person[str[2]].ContanctPerosnList.Add(str[1], str[1]);
 
                         contactpersons = "";
-                        foreach(string i in Person[str[1]].ContanctPerosnList.Values)
+                        foreach (string i in Person[str[1]].ContanctPerosnList.Values)
                         {
                             if (i == "") continue;
                             contactpersons += i + ";";
@@ -186,9 +180,9 @@ namespace server
                     }
                     else if (str[0] == "register")
                     {
-                        Customer temp = new Customer() { Name = str[1], Passwd = str[2], ID=count+1, OnLine=false };
+                        Customer temp = new Customer() { Name = str[1], Passwd = str[2], ID = count + 1, OnLine = false };
                         sql.insertSql(temp, ++count);
-                        Person.Add(temp.Name,temp);
+                        Person.Add(temp.Name, temp);
                     }
                     else if (str[0] == "signin")
                     {
@@ -210,20 +204,20 @@ namespace server
                             ClientSocket.Send(Encoding.Default.GetBytes($"fail {str[1]}未注册"));
                         }
                     }
-                    else if(str[0]== "deleteperson")
+                    else if (str[0] == "deleteperson")
                     {
                         string list1 = "", list2 = "";
                         Person[str[1]].ContanctPerosnList.Remove(str[2]);
-                        foreach(string i in Person[str[1]].ContanctPerosnList.Values)
+                        foreach (string i in Person[str[1]].ContanctPerosnList.Values)
                         {
                             list1 += i + ";";
                         }
                         Person[str[2]].SendInfo($"deleteperson {str[1]}");
-                        foreach(string i in Person[str[1]].ContanctPerosnList.Values)
+                        Person[str[2]].ContanctPerosnList.Remove(str[1]);
+                        foreach (string i in Person[str[2]].ContanctPerosnList.Values)
                         {
                             list2 += i + ";";
                         }
-                        Person[str[2]].ContanctPerosnList.Remove(str[1]);
                         sql.deletePerson(str[1], list1);
                         sql.deletePerson(str[2], list2);
                     }
@@ -267,12 +261,11 @@ namespace server
                     this.Dispatcher.Invoke(new Action(() =>
                     {
                         listBox2.Items.Add(msgStr + Environment.NewLine);
-                    })); 
-                    //这错了
+                    }));
                     if (str[0] == "out")
                     {
                         Person[str[1]].OnLine = false;
-                        foreach(string i in Person[str[1]].ContanctPerosnList.Values)
+                        foreach (string i in Person[str[1]].ContanctPerosnList.Values)
                         {
                             if (Person[i].OnLine)
                             {

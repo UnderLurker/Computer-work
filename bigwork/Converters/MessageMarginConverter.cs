@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using bigwork.ViewModel;
+using System;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
-using bigwork.ViewModel;
 
 namespace bigwork.Converters
 {

@@ -1,10 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace bigwork.Modle
 {
@@ -21,7 +16,7 @@ namespace bigwork.Modle
         public string ContactPersonID { get; set; } = string.Empty;
 
         //聊天信息
-        private ObservableCollection<Chat> chatContext=new ObservableCollection<Chat>() { };
+        private ObservableCollection<Chat> chatContext = new ObservableCollection<Chat>() { };
         public ObservableCollection<Chat> ChatContext
         {
             get { return chatContext; }

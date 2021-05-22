@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Media;
-using bigwork.Modle;
 
 namespace bigwork.Converters
 {
@@ -14,7 +9,7 @@ namespace bigwork.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Brush br= new SolidColorBrush(Color.FromRgb(255, 165, 0));
+            Brush br = new SolidColorBrush(Color.FromRgb(255, 165, 0));
             if (value != null)
             {
                 if (bool.TryParse(value.ToString(), out bool result))

@@ -70,7 +70,7 @@ namespace bigwork.Net
                     string[] info = msg.Split(' ');
                     if (info[0] == "personlist")
                     {
-                        if (info.Length > 1) 
+                        if (info.Length > 1)
                         {
                             string[] temp = info[1].Split(';');
                             for (int i = 0; i < temp.Length; i++)
