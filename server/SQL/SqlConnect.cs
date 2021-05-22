@@ -23,7 +23,7 @@ namespace server.SQL
         /// </summary>
         /// <param name="person"></param>
         /// <returns></returns>
-        public int SelectMySql(List<Customer> person)
+        public int SelectMySql(Dictionary<string, Customer> person)
         {
             int count = 0;
             using (MySqlConnection msc=new MySqlConnection(MyConString))
@@ -54,9 +54,9 @@ namespace server.SQL
                     foreach(string i in list)
                     {
                         if (i == "") continue;
-                        temp.ContanctPerosnList.Add(i);
+                        temp.ContanctPerosnList.Add(i,i);
                     }
-                    person.Add(temp);
+                    person.Add(temp.Name, temp);
                     count++;
                 }
             }

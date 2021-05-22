@@ -144,6 +144,10 @@ namespace bigwork.Net
                         {
                             MessageBox.Show("对方拒绝添加您为好友", "添加好友");
                         }
+                        else if (info[0] == "none")
+                        {
+                            MessageBox.Show("查无此人", "添加好友");
+                        }
                     }
 
                 }

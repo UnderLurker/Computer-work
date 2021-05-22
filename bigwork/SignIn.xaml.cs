@@ -59,18 +59,6 @@ namespace bigwork
             this.Close();
         }
 
-        public void jump(string name)
-        {
-            Dispatcher.Invoke(
-                new Action(
-                        delegate
-                        {
-                            MainWindow mainWindow = new MainWindow(name, this.vm);
-                            mainWindow.Show();
-                            this.Close();
-                        }
-                    ));
-        }
 
         private static bool isVictory = false;
         //登录是否成功

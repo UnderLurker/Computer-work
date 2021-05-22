@@ -23,7 +23,7 @@ namespace server
     {
         static SqlConnect sql = new SqlConnect();
         static int count = 0;
-        List<Customer> Person = new List<Customer>() { };
+        Dictionary<string, Customer> Person = new Dictionary<string, Customer>() { };
 
         public MainWindow()
         {
@@ -145,84 +145,65 @@ namespace server
                 {
                     if (str[0] == "添加")
                     {
-                        foreach (Customer i in Person)
+                        try
                         {
-                            if (i.Name == str[2])
+                            if (Person[str[2]].OnLine)
                             {
-                                if (i.OnLine == false)
-                                {
-                                    foreach (Customer j in Person)
-                                    {
-                                        if (j.Name == str[1])
-                                        {
-                                            j.Socket.Send(Encoding.Default.GetBytes($"noline {str[2]}"));
-                                        }
-                                    }
-                                    break;
-                                }
-                                i.Socket.Send(Encoding.Default.GetBytes($"please {str[1]} {str[2]}"));
-                                break;
+                                Person[str[2]].SendInfo($"please {str[1]} {str[2]}");
                             }
+                            else
+                            {
+                                Person[str[1]].SendInfo($"noline {str[2]}");
+                            }
+                        }
+                        catch(Exception ex)
+                        {
+                            Person[str[1]].SendInfo($"none");
                         }
                     }
                     else if (str[0] == "yes")
                     {
-                        foreach (Customer i in Person)
+                        string contactpersons = "";
+                        foreach (string i in Person[str[2]].ContanctPerosnList.Values)
                         {
-                            if (i.Name == str[2])
-                            {
-                                string contactpersons = "";
-                                foreach(string j in i.ContanctPerosnList)
-                                {
-                                    if (j == "") continue;
-                                    contactpersons += j + ";";
-                                }
-                                contactpersons += str[1] + ";";
-                                sql.updatePerson(i.Name, contactpersons);
-                                i.Socket.Send(Encoding.Default.GetBytes($"yes {str[1]}"));
-                                i.ContanctPerosnList.Add(str[1]);
-                            }
-                            if (i.Name == str[1])
-                            {
-                                string contactpersons = "";
-                                foreach (string j in i.ContanctPerosnList)
-                                {
-                                    if (j == "") continue;
-                                    contactpersons += j + ";";
-                                }
-                                contactpersons += str[2] + ";";
-                                sql.updatePerson(i.Name, contactpersons);
-                                i.ContanctPerosnList.Add(str[2]);
-                            }
+                            if (i == "") continue;
+                            contactpersons += i + ";";
                         }
+                        contactpersons += str[1] + ";";
+                        sql.updatePerson(str[2], contactpersons);
+                        Person[str[2]].SendInfo($"yes {str[1]}");
+                        Person[str[2]].ContanctPerosnList.Add(str[1],str[1]);
+
+                        contactpersons = "";
+                        foreach(string i in Person[str[1]].ContanctPerosnList.Values)
+                        {
+                            if (i == "") continue;
+                            contactpersons += i + ";";
+                        }
+                        contactpersons += str[2] + ";";
+                        sql.updatePerson(str[1], contactpersons);
+                        Person[str[1]].ContanctPerosnList.Add(str[2], str[2]);
                     }
                     else if (str[0] == "register")
                     {
                         Customer temp = new Customer() { Name = str[1], Passwd = str[2], ID=count+1, OnLine=false };
                         sql.insertSql(temp, ++count);
-                        Person.Add(temp);
+                        Person.Add(temp.Name,temp);
                     }
                     else if (str[0] == "signin")
                     {
                         bool isy = false;
-                        foreach (Customer i in Person)
+                        if (Person[str[1]].Passwd == str[2])
                         {
-                            if (i.Name == str[1])
-                            {
-                                if (i.Passwd == str[2])
-                                {
-                                    ClientSocket.Send(Encoding.Default.GetBytes($"successful {str[1]}"));
-                                    i.Socket = ClientSocket;
-                                    i.OnLine = true;
-                                    isy = true;
-                                    //string contactperson = sql.readPerson(i.Name);
-                                    //ClientSocket.Send(Encoding.Default.GetBytes($"personlist {contactperson}"));
-                                    break;
-                                }
-                                ClientSocket.Send(Encoding.Default.GetBytes($"failed 密码错误"));
-                                isy = true;
-                                break;
-                            }
+                            ClientSocket.Send(Encoding.Default.GetBytes($"successful {str[1]}"));
+                            Person[str[1]].Socket = ClientSocket;
+                            Person[str[1]].OnLine = true;
+                            isy = true;
+                        }
+                        else
+                        {
+                            ClientSocket.Send(Encoding.Default.GetBytes($"failed 密码错误"));
+                            isy = true;
                         }
                         if (!isy)
                         {
@@ -232,36 +213,17 @@ namespace server
                     else if(str[0]== "deleteperson")
                     {
                         string list1 = "", list2 = "";
-                        foreach (Customer i in Person)
+                        Person[str[1]].ContanctPerosnList.Remove(str[2]);
+                        foreach(string i in Person[str[1]].ContanctPerosnList.Values)
                         {
-                            if (i.Name == str[1])
-                            {
-                                for (int j = 0; j < i.ContanctPerosnList.Count; j++)
-                                {
-                                    if (i.ContanctPerosnList[j] == str[2])
-                                    {
-                                        i.ContanctPerosnList.Remove(i.ContanctPerosnList[j]);
-                                        j--;
-                                        continue;
-                                    }
-                                    list1 += i.ContanctPerosnList[j] + ';';
-                                }
-                            }
-                            if (i.Name == str[2])
-                            {
-                                i.Socket.Send(Encoding.Default.GetBytes($"deleteperson {str[1]}"));
-                                for (int j = 0; j < i.ContanctPerosnList.Count; j++)
-                                {
-                                    if (i.ContanctPerosnList[j] == str[1])
-                                    {
-                                        i.ContanctPerosnList.Remove(i.ContanctPerosnList[j]);
-                                        j--;
-                                        continue;
-                                    }
-                                    list2 += i.ContanctPerosnList[j] + ';';
-                                }
-                            }
+                            list1 += i + ";";
                         }
+                        Person[str[2]].SendInfo($"deleteperson {str[1]}");
+                        foreach(string i in Person[str[1]].ContanctPerosnList.Values)
+                        {
+                            list2 += i + ";";
+                        }
+                        Person[str[2]].ContanctPerosnList.Remove(str[1]);
                         sql.deletePerson(str[1], list1);
                         sql.deletePerson(str[2], list2);
                     }
@@ -270,46 +232,20 @@ namespace server
                 {
                     if (str[0] == "no")
                     {
-                        foreach (Customer i in Person)
-                        {
-                            if (i.Name == str[1])
-                            {
-                                i.Socket.Send(Encoding.Default.GetBytes("no"));
-                            }
-                        }
+                        Person[str[1]].SendInfo("no");
                     }
-                    //else if (str[0] == "out")
-                    //{
-                    //    foreach (Customer i in Person)
-                    //    {
-                    //        if (i.Name == str[1])
-                    //        {
-                    //            i.OnLine = false;
-                    //            continue;
-                    //        }
-                    //        else if (i.OnLine == false)
-                    //        {
-                    //            continue;
-                    //        }
-                    //        foreach (string j in i.ContanctPerosnList)
-                    //        {
-                    //            i.Socket.Send(Encoding.Default.GetBytes($"out {str[1]}"));
-                    //        }
-                    //        Person.Remove(i);
-                    //    }
-                    //}
                 }
                 else if (str.Length == 4)
                 {
                     if (str[0] == "add")
                     {
-                        foreach (Customer i in Person)
+                        if (Person[str[2]].OnLine)
                         {
-                            if (i.Name == str[2] && i.OnLine)
-                            {
-                                i.Socket.Send(Encoding.Default.GetBytes($"info {str[1]} {str[3]}"));
-                                break;
-                            }
+                            Person[str[2]].SendInfo($"info {str[1]} {str[3]}");
+                        }
+                        else
+                        {
+                            Person[str[1]].SendInfo($"noline {str[2]}");
                         }
                     }
                 }
@@ -335,23 +271,12 @@ namespace server
                     //这错了
                     if (str[0] == "out")
                     {
-                        foreach (Customer i in Person)
+                        Person[str[1]].OnLine = false;
+                        foreach(string i in Person[str[1]].ContanctPerosnList.Values)
                         {
-                            if (i.Name == str[1])
+                            if (Person[i].OnLine)
                             {
-                                i.OnLine = false;
-                                foreach(string name in i.ContanctPerosnList)
-                                {
-                                    foreach(Customer j in Person)
-                                    {
-                                        if (j.Name == name && j.OnLine == true)
-                                        {
-                                            j.Socket.Send(Encoding.Default.GetBytes($"out {str[1]}"));
-                                            break;
-                                        }
-                                    }
-                                }
-                                break;
+                                Person[i].SendInfo($"out {str[1]}");
                             }
                         }
                     }

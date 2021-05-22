@@ -18,8 +18,14 @@ namespace server.data
         private Socket socket = null;
         public Socket Socket
         {
-            get { return socket; }
             set { socket = value; }
+        }
+
+        public void SendInfo(string context)
+        {
+            string str = context.Trim();
+            byte[] buffer = Encoding.Default.GetBytes(str);
+            socket.Send(buffer);
         }
 
         //private readonly string passwd;
@@ -32,11 +38,13 @@ namespace server.data
             set { online = value; }
         }
 
-        private List<string> contactPersonList = new List<string>() { };
-        public List<string> ContanctPerosnList
+        private Dictionary<string,string> contactPersonList = new Dictionary<string, string>() { };
+        public Dictionary<string, string> ContanctPerosnList
         {
             get { return contactPersonList; }
             set { contactPersonList = value; }
         }
+
+
     }
 }
