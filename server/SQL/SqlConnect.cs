@@ -128,7 +128,6 @@ namespace server.SQL
         {
             using (MySqlConnection msc=new MySqlConnection(MyConString))
             {
-                string result1 = "";
                 MySqlCommand cmd1 = new MySqlCommand($"update client set contactpersons='{personlist}' where name='{username}'",msc);
                 msc.Open();
                 cmd1.ExecuteReader();

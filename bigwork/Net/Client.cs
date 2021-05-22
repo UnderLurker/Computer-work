@@ -11,12 +11,6 @@ namespace bigwork.Net
 {
     public class Client
     {
-        private SignIn si = null;
-        public SignIn Si
-        {
-            get { return si; }
-            set { si = value; }
-        }
         private static MainViewModel mv;
         public static MainViewModel MV
         {

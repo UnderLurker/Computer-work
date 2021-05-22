@@ -26,7 +26,6 @@ namespace bigwork
         public SignIn()
         {
             vm.ConnectServer("127.0.0.1", 9999);
-            vm.Si = this;
             InitializeComponent();
         }
 
