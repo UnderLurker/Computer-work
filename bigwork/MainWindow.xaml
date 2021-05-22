@@ -100,19 +100,25 @@
         <cv:OnLineConverter x:Key="onlinecv"/>
         <cv:UserMessageConverter x:Key="message"/>
         <cv:MessageMarginConverter x:Key="margin"/>
+        
 
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="1"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
+        
         <!--联系人-->
         <StackPanel Width="250" Name="list" Orientation="Vertical">
-            <TextBlock x:Name="logo" Text="OnLine Chat" TextWrapping="WrapWithOverflow" Height="35" Padding="10" Foreground="#BFBFBF" FontSize="13"/>
+            <Border Width="200" BorderThickness="0 0 0 1" BorderBrush="Black">
+                <TextBlock x:Name="logo" Text="OnLine Chat" TextWrapping="WrapWithOverflow" Height="35" Padding="10" Foreground="Black" FontSize="13"/>
+            </Border>
             <UniformGrid Margin="0 10 0 10">
-                <StackPanel Orientation="Horizontal">
+                <Border Width="200" BorderBrush="Black" BorderThickness="0 0 0 1">
+                <StackPanel Orientation="Horizontal" Margin="-15 0 0 10">
                     <!--头像-->
                     <Grid x:Name="grid">
                         <Border MouseLeftButtonDown="Border_MouseLeftButtonDown" Background="#4169E1" Width="45" Height="45" CornerRadius="22.5" Margin="20 0 0 0"/>
@@ -120,7 +126,7 @@
                     </Grid>
                     <Border BorderThickness="5" BorderBrush="LightSteelBlue" Width="10" Height="10" CornerRadius="10" Margin="-10 0 0 -23"/>
                     <TextBlock Name="ID" Text="" FontSize="14" Width="130" VerticalAlignment="Center" Margin="20 0 0 0"/>
-                    <Button Name="change" Background="Transparent" BorderThickness="0" Content="&#xe631;" FontSize="30" Foreground="Gray" VerticalAlignment="Center"  FontFamily="Font/#iconfont" RenderTransformOrigin="0.5,0.5" Click="Change_Button_Click">
+                    <Button Margin="-30 0 0 0" BorderThickness="0" Width="35" Name="change" Background="Transparent" RenderTransformOrigin="0.5,0.5" Click="Change_Button_Click" Content="&#xe631;" FontSize="30" Foreground="Gray" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Font/#iconfont">
                         <Button.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -131,11 +137,12 @@
                         </Button.RenderTransform>
                     </Button>
                 </StackPanel>
+                </Border>
             </UniformGrid>
 
             <!--联系人-->
             <ScrollViewer ContextMenu="{StaticResource ContextMenu}" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden">
-                <ListBox ItemsSource="{Binding PersonList}" Name="lb" BorderThickness="0" Height="395" >
+                <ListBox ItemsSource="{Binding PersonList}" Name="lb" BorderThickness="0" Height="385" >
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -216,7 +223,9 @@
             </Grid>
         </StackPanel>
 
-        <Grid Grid.Column="1">
+        <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1 1 1 1"/>
+
+        <Grid Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="35"/>
                 <RowDefinition/>
@@ -310,12 +319,12 @@
                                     <Border Width="auto" Height="auto" Background="Gray" MaxWidth="300" CornerRadius="5" Opacity="0.8" Margin="{Binding name,Converter={StaticResource margin}}">
                                         <TextBlock Text="{Binding context}" LineHeight="20" VerticalAlignment="Center" Foreground="White" FontSize="12" Padding="7" TextWrapping="Wrap"/>
                                     </Border>
-                                    
+
                                     <!--<Grid Margin="10 0 10 0">
                                         <Border Background="#4069D1" Width="24" Height="24" CornerRadius="12" Margin="0" />
                                         <TextBlock Text="{Binding ContactPersonAvatar}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontSize="15"/>
                                     </Grid>-->
-                                    
+
                                 </StackPanel>
                                 <Border.Style>
                                     <Style TargetType="{x:Type Border}">
