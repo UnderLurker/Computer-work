@@ -215,6 +215,8 @@ namespace server
                                     i.Socket = ClientSocket;
                                     i.OnLine = true;
                                     isy = true;
+                                    //string contactperson = sql.readPerson(i.Name);
+                                    //ClientSocket.Send(Encoding.Default.GetBytes($"personlist {contactperson}"));
                                     break;
                                 }
                                 ClientSocket.Send(Encoding.Default.GetBytes($"failed 密码错误"));
@@ -276,6 +278,26 @@ namespace server
                             }
                         }
                     }
+                    //else if (str[0] == "out")
+                    //{
+                    //    foreach (Customer i in Person)
+                    //    {
+                    //        if (i.Name == str[1])
+                    //        {
+                    //            i.OnLine = false;
+                    //            continue;
+                    //        }
+                    //        else if (i.OnLine == false)
+                    //        {
+                    //            continue;
+                    //        }
+                    //        foreach (string j in i.ContanctPerosnList)
+                    //        {
+                    //            i.Socket.Send(Encoding.Default.GetBytes($"out {str[1]}"));
+                    //        }
+                    //        Person.Remove(i);
+                    //    }
+                    //}
                 }
                 else if (str.Length == 4)
                 {
@@ -310,6 +332,7 @@ namespace server
                     {
                         listBox2.Items.Add(msgStr + Environment.NewLine);
                     })); 
+                    //这错了
                     if (str[0] == "out")
                     {
                         foreach (Customer i in Person)
