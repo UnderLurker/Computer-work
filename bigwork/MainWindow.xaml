@@ -142,7 +142,7 @@
 
             <!--联系人-->
             <ScrollViewer ContextMenu="{StaticResource ContextMenu}" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden">
-                <ListBox ItemsSource="{Binding PersonList}" Name="lb" BorderThickness="0" Height="385" >
+                <ListBox ItemsSource="{Binding PersonList}" Name="lb" BorderThickness="0" Height="385" SelectionChanged="lb_SelectionChanged">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -225,7 +225,7 @@
 
         <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1 1 1 1"/>
 
-        <Grid Grid.Column="2">
+        <Grid Name="chat" Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="35"/>
                 <RowDefinition/>
@@ -305,7 +305,7 @@
 
 
             <!--聊天-->
-            <ScrollViewer Name="scroll" VerticalScrollBarVisibility="Auto" Grid.Row="1">
+            <ScrollViewer Name="scroll" VerticalScrollBarVisibility="Auto" Grid.Row="1" Visibility="Hidden">
                 <ItemsControl ItemsSource="{Binding ContactPersonModule.ChatContext}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -341,7 +341,7 @@
             </ScrollViewer>
 
 
-            <Grid Grid.Row="2">
+            <Grid Grid.Row="2" Name="input1" Visibility="Hidden">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition Height="150"/>

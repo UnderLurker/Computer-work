@@ -13,14 +13,18 @@
         </Grid.RowDefinitions>
 
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock Name="error" Text="用户名或密码不规范！！！" Foreground="Red" HorizontalAlignment="Center" Visibility="Hidden"/>
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin=" 0 20 0 10">
-                <TextBlock Text="用户名：" FontSize="15"/>
+            <TextBlock Name="error" Text="用户名或密码不规范！！！" Foreground="Red" HorizontalAlignment="Center" />
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin=" 0 5 0 5">
+                <TextBlock Text="   用户名：" FontSize="15"/>
                 <TextBox Width="150" Name="user_name"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin=" 0 10 0 20">
-                <TextBlock Text="   密码：" FontSize="15"/>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin=" 0 5 0 5">
+                <TextBlock Text="       密码：" FontSize="15"/>
                 <PasswordBox Width="150" Name="user_passwd"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin=" 0 5 0 5">
+                <TextBlock Text="确认密码：" FontSize="15"/>
+                <PasswordBox Width="150" Name="user_passwd_again"/>
             </StackPanel>
         </StackPanel>
 

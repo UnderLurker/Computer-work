@@ -166,5 +166,11 @@ namespace bigwork
             var vm1 = this.DataContext as MainViewModel;
             vm1.DeleteContactPerson(sendery.ContactPersonID);
         }
+
+        private void lb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            scroll.Visibility = Visibility.Visible;
+            input1.Visibility = Visibility.Visible;
+        }
     }
 }

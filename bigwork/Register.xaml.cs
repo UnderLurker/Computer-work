@@ -31,7 +31,8 @@ namespace bigwork
         {
             string name = user_name.Text.Trim();
             string passwd = user_passwd.Password.Trim();
-            if (name == "" || passwd == "")//不正确
+            string passwd_again = user_passwd_again.Password.Trim();
+            if (name == "" || passwd == "" || passwd_again == "" || passwd != passwd_again) //不正确
             {
                 error.Visibility = Visibility.Visible;
                 return;
