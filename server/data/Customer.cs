@@ -6,10 +6,8 @@ namespace server.data
 {
     public class Customer
     {
-        //private string name;
         public string Name { get; set; }
 
-        //private int id;
         public int ID { get; set; }
 
         private Socket socket = null;
@@ -25,7 +23,6 @@ namespace server.data
             socket.Send(buffer);
         }
 
-        //private readonly string passwd;
         public string Passwd { get; set; }
 
         private bool online = false;
